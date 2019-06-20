@@ -1,0 +1,18 @@
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: cron-job
+spec:
+  schedule: "*/15 * * * *"
+  startingDeadlineSeconds: 15
+  jobTemplate:
+    spec:
+      template:
+        metadata:
+          labels:
+            app: cronjob-template
+        spec:
+          restartPolicy: OnFailure
+          containers:
+          - name: main
+            image: luksa/batch-job
